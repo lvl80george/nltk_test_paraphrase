@@ -28,7 +28,9 @@ def paraphrase(original, limit=-1):
             if child.label() == 'NP': child_nps.append((j, child))
         nodes_for_permutations.append((i, child_nps))
     
-    
+    # after finding all the sites where permutations are needed
+    # this recursive function will go through all of them to
+    # generate all the combinations of their permutations
     results = []
     def rec(level):
         if(len(nodes_for_permutations) == level):# finished one variant
