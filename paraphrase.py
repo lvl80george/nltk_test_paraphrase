@@ -9,6 +9,7 @@ from itertools import permutations
 #   2) find all the possible permutations of children NP's in the parent NP
 
 def paraphrase(original, limit=-1):
+    # limit -1 will mean no limit
     # find all the noun phrases that consist of several noun phrases (step 1)
     # Generate all the subtrees of this tree,
     # restricted to trees matching the filter function (that's NP's with multiple NP's inside)
@@ -33,11 +34,11 @@ def paraphrase(original, limit=-1):
     # generate all the combinations of their permutations
     results = []
     def rec(level):
+        if(limit != -1)and(len(results) >= limit):
+            return # we hit the maximum number of results needed
         if(len(nodes_for_permutations) == level):# finished one variant
             results.append(original.copy(deep=True))# save a tree variant to results
             return # exit recursion
-        if(limit != -1)and(len(results) == limit):
-            return # we hit the maximum number of results needed
         # otherwise do a permutation
         processed_node, children = nodes_for_permutations[level]
         permutations_ids = permutations(range(0, len(children)))#[1,2,3][2,1,3]...
